@@ -1,0 +1,166 @@
+*
+{
+    margin: 0px;
+    padding: 0px;
+    font-family: tahoma;
+}
+a{
+    text-decoration: none;
+}
+.header
+{
+    background: linear-gradient(#4D68A1,#3B5998);
+}
+.header:after
+{
+    content: '';
+    display: block;
+
+    clear: both;
+}
+.mid
+{
+    width: 80%;
+    margin: auto;
+}
+.logo
+{
+    width: 60%;
+    margin-top: 25px;
+    float: left;
+}
+.login-area
+{
+  color: white;
+  width: 40%;
+  float: left;
+}
+.login-area:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.log1 input,.log2 input{
+   
+    display: block;
+    padding: 3px;
+    border: 1px solid #1d2a5b;
+    width: 142px;
+    margin-top: 4px;
+}
+.log1 , .log2, .log3
+{
+    float: left;
+    margin:15px 5px 5px 5px;
+}
+.log2 a{
+    color: #9cb4d8;
+    cursor: pointer;
+}
+.log2 a:hover{
+    text-decoration: underline;
+}
+.log3 input{
+    margin-top: 24px;
+    color: white;
+    background:#375ba8;
+    padding: 3x;
+    font-size: 12px;
+    line-height: 18px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.log3 input:hover
+{
+    background-color: #062257;
+}
+
+/*body part style is here*/
+
+.body{
+    background: linear-gradient(#FEFEFE,#D3D8E8);
+}
+.body::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.container{
+    width: 80%;
+    margin: auto;
+}
+.first{
+    width: 57%;
+  
+    float: left;
+}
+.first p{
+    color: #0E385F;
+    font-weight: bold;
+    width: 85%;
+    font-size: 25px;
+    line-height: 29px;
+    margin-top: 40px;
+
+}
+.second{
+    width: 43%;
+   
+    float:left;
+}
+.second h1{
+    font-size: 36px;
+    margin-top: 35px;
+    
+}
+.second h4{
+    color: #1d2129;
+    font-size: 19px;
+    margin: 10px 0px;
+}
+.body .second .signup input
+{
+   width: 100%;
+   box-sizing: border-box;
+   padding: 8px 10px;
+   margin-bottom: 10px;
+   color: #555;
+   border: 1px solid  #bdc7d8;
+   border-radius: 5px;
+
+}
+.body .second .signup input:nth-child(1)
+{
+    width: 49%;
+}
+.body .second .signup input:nth-child(2)
+{
+    width: 49%;
+    float: right;
+}
+/*Birthday part start*/
+.birthday
+{
+    color: #555;
+}
+.birthday::after
+{
+    content: '';
+    display: block;
+
+    clear: both;
+}
+.birthday .dmy select{
+
+    margin-left: 0px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #bdc7d8;
+    float: left;
+}
+.birthday .dmy a{
+    font-size: 11px;
+    width: 150px;
+}
+
