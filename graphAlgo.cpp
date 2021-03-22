@@ -21,8 +21,6 @@ void dfs ( int node )
 }
 
 
-
-
 .........................
 	  DISTANCE
 ........................
@@ -73,7 +71,6 @@ bool dfs ( int node,int c )
 }
 
 
-
 .........................
 	CYCLE DETECTION
 ........................
@@ -99,7 +96,6 @@ void dfs ( int node,int parent )
 
 
 
-
 .........................
 	IN/OUT TIME
 ........................
@@ -116,4 +112,34 @@ void dfs ( int node )
         }
     }
  out[[node]=timer++;
-}	
+}
+  
+     
+     
+.........................
+ LONGEST PATH IN A TREE
+........................
+     
+ vi v[10001];
+int vis[10001];
+int maxD,maxNode;
+void dfs (int node, int d){
+    vis[node]=1;
+    if(d > maxD)maxD = d, maxNode = node;
+
+    for(int neighbor : v[node])
+    if(!vis[neighbor])
+        dfs(neighbor, d+1);
+}
+ 
+int main(){
+	//here the function is called 2 time
+	//first time search the desire node
+	//second time search the distance
+	maxD=-1;
+	dfs(1,0);
+	for(int i=0;i<n;i++)vis[i]=0;
+	maxD=-1;
+	dfs(maxNode,0);
+	
+}
