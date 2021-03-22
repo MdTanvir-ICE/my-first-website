@@ -20,6 +20,9 @@ void dfs ( int node )
  
 }
 
+
+
+
 .........................
 	  DISTANCE
 ........................
@@ -68,6 +71,32 @@ bool dfs ( int node,int c )
     return true;
 
 }
+
+
+
+.........................
+	CYCLE DETECTION
+........................
+	
+void dfs ( int node,int parent )
+{
+    vis[node] =  true;
+ 
+    for ( auto neighbour : adj[node] ) {
+	    
+        if ( !vis[neighbour] ) {
+           if( dfs ( neighbour, node ) = true )
+		   return true;
+        }
+      else {
+	      if(child != parent ) return true;
+        }
+
+    }
+    
+	return false;
+}
+
 
 
 
