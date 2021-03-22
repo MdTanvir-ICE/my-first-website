@@ -68,3 +68,23 @@ bool dfs ( int node,int c )
     return true;
 
 }
+
+
+
+.........................
+	IN/OUT TIME
+........................
+	
+int timer = 1;	
+void dfs ( int node )
+{
+    vis[node] =  true;
+    in[node]	= timer++;
+    for ( auto neighbour : adj[node] ) {
+           // cout<<v<<" "<<adj[node].size()<<endl;
+        if ( !vis[neighbour] ) {
+            dfs ( neighbour );
+        }
+    }
+ out[[node]=timer++;
+}	
