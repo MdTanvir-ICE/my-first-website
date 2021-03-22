@@ -2,7 +2,7 @@
 
 .........................
 	  DFS
-........................
+.........................
 
 const int mx = 1e5+123;
 bool vis[mx];
@@ -142,4 +142,29 @@ int main(){
 	maxD=-1;
 	dfs(maxNode,0);
 	
+}
+
+     
+ .........................
+	  BFS
+..........................
+vector<int> ar[10001];
+int vis[10001],dist[10001];
+
+void BFS(int src){
+    queue<int> q;
+    q.push(src);
+    dist[src] =0;
+
+    while(!q.empty()){
+        int cur = q.front();
+        q.pop();
+        for(auto neighbour : ar[cur]){
+            if(!vis[neighbour]){
+                q.push(neighbour);
+                dist[neighbour]=dist[cur]+1;
+                vis[neighbour] = 1;
+            }
+        }
+    }
 }
