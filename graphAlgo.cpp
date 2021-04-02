@@ -149,6 +149,7 @@ void dfs ( int node,int parent )
 .........................
 	IN/OUT TIME
 ........................
+	for find the sub tree
 	
 int timer = 1;	
 void dfs ( int node )
