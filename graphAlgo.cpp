@@ -124,6 +124,7 @@ bool dfs ( int node,int c )
 .........................
 	CYCLE DETECTION
 ........................
+https://cp-algorithms.com/graph/finding-cycle.html
 	
 void dfs ( int node,int parent )
 {
