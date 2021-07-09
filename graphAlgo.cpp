@@ -282,4 +282,62 @@ int main(){
     bfs(x,y);
 }
      
+ .........................
+	 Dijkstra
+..........................
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+typedef pair<int,int>pii;
+typedef pair<ll,ll>pll;
+typedef vector<pii>vii;
+typedef vector<pll>vll;
+const int mx = 1e5+123;
+vii adj[mx];
+ll dist[mx];
+
+void dijkstra (int src, int n){
+    for(int i = 0; i <= n; i++ )dist[i]=9e6;
+    dist[src] = 0;
+   cout<<"i am call"<<endl;
+    priority_queue < pii, vii, greater<pii> >pq;
+    pq.push({src,0});
+
+    while(!pq.empty()){
+        int u = pq.top().first;
+        int curD = pq.top().second;
+        pq.pop();
+
+        if( dist[u]< curD ) continue;
+
+        for(auto child : adj[u]){
+            int v = child.first;
+            int w = child.second;
+
+            if(curD + w < dist[v]){
+                dist[v] = curD+w;
+                pq.push({v,dist[v]});
+
+
+            }
+
+        }
+    }
+
+}
+
+int main(){
+    int n,m;
+    cin >> n >> m;
+    for(int i=1; i<=m; i++){
+        int u,v,w;
+        cin>>u>>v>>w;
+        adj[u].push_back({v,w});
+    }
+    dijkstra(1,n);
+    for(int i=0; i<=n; i++)cout<<dist[i]<<" ";
+    cout<<endl;
+
+}
 
