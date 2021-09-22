@@ -1,0 +1,672 @@
+%Problem 1:  Write a MATLAB program for (i) negative (ii) Log (iii) power-law transformation of a gray level image.
+%Source code: 
+%matlab program for negative tranformation of a gray level image
+
+
+clc;
+clear all;
+close all;
+i1=imread('cameraman.tif');
+subplot(1,2,1);
+imshow(i1)
+title('original image')
+neg_img=255-i1;
+subplot(1,2,2);
+imshow(neg_img)
+title('Negative Image')
+
+
+%Log Transformations: 
+%Source Code: 
+%problem102: log transformation of a gray level image
+clc;
+clear all;
+close all;
+img=imread('F:\3-2\Teams Files\DIP\Image Processing Book Images\DIP3E_Original_Images_CH02/Fig0222(b)(cameraman).tif');
+figure(1);
+subplot(1,2,1)
+imshow(img)
+title('Input image');
+img2=im2double(img);
+c=input('Input constant c:');
+log_trans=c*log(1+img2);
+subplot(1,2,2)
+imshow(log_trans)
+title('Log transformed Image');
+
+%Power-Law Transformations: Power-law tranformations have the basic form 
+%Source Coe: 
+%problem103:power law transformation of a gray level image
+clc;
+clear all;
+close all;
+img=imread('F:\3-2\Teams Files\DIP\Image Processing Book Images\DIP3E_Original_Images_CH03/Fig0309(a)(washed_out_aerial_image).tif');
+figure(1)
+subplot(1,2,1)
+imshow(img)
+title('input image');
+img2=im2double(img);
+c=input('input constant c:');
+gamma=input('input constant gamma:')'
+trans_img=c*(img2.^gamma);
+subplot(1,2,2)
+imshow(trans_img)
+title('Power law transformation');
+
+%Problem 2: Write a MATLAB program for (i) showing histogram (ii) contrast stretching (iii) histogram equalization of a gray level image.
+%Histogram Processing
+%Source code:
+%problem202:matlab program fo histogram of a gray level image:
+clc;
+clear all;
+close all;
+img=imread('F:\3-2\Teams Files\DIP\Image Processing Book Images\DIP3E_Original_Images_CH03/Fig0316(4)(bottom_left).tif');
+figure(1);
+subplot(1,2,1);
+imshow(img);
+title('source image')
+subplot(1,2,2);
+imhist(img);
+title('histogram');
+
+%Contrast Stretching: 
+%Source Code: 
+%problem201: matlab program for contrast stetching of a gray level image:
+clc;
+clear all;
+close all;
+img=imread('F:\3-2\Teams Files\DIP\Image Processing Book Images\DIP3E_Original_Images_CH03/Fig0310(b)(washed_out_pollen_image).tif');
+figure(1);
+subplot(2,2,1);
+imshow(img);
+title('Source image')
+subplot(2,2,2);
+imhist(img);
+title('source image histogram')
+stretched_image=imadjust(img,[0.3, 0.6], [0.0, 1.0]);
+subplot(2,2,3);
+imshow(stretched_image);
+title('Constrast stretched image');
+subplot(2,2,4);
+imhist(stretched_image);
+title('constrast stretched image histogram');
+
+%Histogram Equalization: 
+%Source Code:
+%matlab program for histogram equalization of a gray level image
+clc;
+clear all;
+close all;
+img=imread('F:\3-2\Teams Files\DIP\Image Processing Book Images\DIP3E_Original_Images_CH03/Fig0316(4)(bottom_left).tif');
+figure(1);
+subplot(2,2,1);
+imshow(img);
+title('Source image')
+subplot(2,2,2);
+imhist(img);
+title('Source image histogram') 
+hist_equ_image=histeq(img);
+subplot(2,2,3);
+imshow(hist_equ_image);
+title('Histogram equalized image');
+subplot(2,2,4);
+imhist(hist_equ_image);
+title('Equalized image histogram');
+
+%Problem 3: Write a MATLAB program for (i) high pass and lowpass filter (ii) average filter (iii) median, max and min filter of a gray level image.
+%High Pass filter: 
+%Source Code:
+%MATLAB program for highpass filter and lowpass filter of a gray level image.
+clc;clear all;close all;
+img=imread('cameraman.tif');
+% Highpass filter
+HighKernel = [ -1 -1 -1; -1 10 -1; -1 -1 -1 ];
+high_pass_img = conv2(HighKernel, img);
+subplot(2,2,1); imshow(img); title('Source image');
+subplot(2,2,2);
+imshow(high_pass_img);
+title('High pass filtered image'); 
+% Lowpass filter
+LowKernel = [ 1 1 1; 1 -10 1; 1 1 1 ];
+low_pass_img = conv2(LowKernel,img);
+subplot(2,2,3)
+imshow(img);
+title('Source image');
+subplot(2,2,4);
+imshow(low_pass_img);
+title('Low pass filtered image');
+%Average filter: 
+%Source Code:
+%MATLAB program for average filter of a gray level image.
+clc;
+clear all;
+close all;
+I=imread('F:\3-2\Teams Files\DIP\Image Processing Book Images\DIP3E_Original_Images_CH03/Fig0333(a)(test_pattern_blurring_orig).tif');
+figure(1),
+subplot(231), imshow(I), title('Source Image');
+%fspecial('average', HSIZE) return an averaging filter H of size HSIZE
+M3=fspecial('average', 3);
+M9=fspecial('average', 9);
+M15=fspecial('average', 15)
+M25=fspecial('average', 25);
+M35=fspecial('average', 35);
+J3=imfilter(I, M3);
+J9=imfilter(I, M9);
+J15=imfilter(I, M15);
+J25=imfilter(I, M25);
+J35=imfilter(I, M35);
+subplot(232), imshow(J3), title('Filtered image by 3*3')
+subplot(233), imshow(J9), title('Filtered image by 9*9')
+subplot(234), imshow(J15), title('Filtered image by 15*15')
+subplot(235), imshow(J25), title('Filtered image by 25*25')
+subplot(236), imshow(J35), title('Filtered image by 35*35')
+
+%Median, Max and Min filters: 
+%Source Code:
+clc;clear all;close all;
+img=imread('cameraman.tif');
+[r,c]=size(img);
+img=im2double(img);
+subplot(231);imshow(img);title('Source image');
+noisy_img=imnoise(img,'salt & pepper');
+subplot(232);imshow(noisy_img);title('Salt & Pepper noisy image'); 
+%%% Filtering , window 3*3
+mf_img=ordfilt2(noisy_img,5,ones(3,3));
+subplot(233);imshow(mf_img);title('Median filtered image');
+subplot(234);imshow(img);title('Source image');
+maxf_img=ordfilt2(noisy_img,9,ones(3,3));
+subplot(235);imshow(maxf_img);title('Max filtered image');
+minf_img=ordfilt2(noisy_img,1,ones(3,3));
+subplot(236);imshow(minf_img);title('Min filtered image');
+
+%Problem 4: Write a MATLAB program for (i) ideal (ii) Butterworth (iii) Gaussian lowpass and highpass filter of a gray level image in frequency domain.
+%Ideal low pass Filters: 
+%Source Code:
+clc; clear all; close all;
+ % Ideal Lowpass Filter(ILPF)
+img=imread('cameraman.tif');
+[r,c]=size(img);
+subplot(231), imshow(img), title('Source image')
+IMG=fftshift(fft2(img));
+ [u,v]=meshgrid(-floor(c/2):floor((c-1)/2),-floor(r/2):floor((r-1)/2));
+D=sqrt(u.^2+v.^2);
+D0=40;
+ILPF=(D<=D0);
+subplot(232),mesh(double(ILPF)),title('ILPF') 
+ILPF_IMG=IMG.*ILPF;
+ilpf_img=ifft2(ILPF_IMG);
+subplot(233),imshow(mat2gray(abs(ilpf_img))), title('ILPF filtered image')
+% Ideal Highpass Filter(IHPF)
+subplot(234),imshow(img),title('Source image') 
+D0=30;
+IHPF=(D>D0);
+subplot(235),mesh(double(IHPF)), title('IHPF')
+IHPF_IMG=IMG.*IHPF;
+ihpf_img=ifft2(IHPF_IMG);
+subplot(236),imshow(mat2gray(abs(ihpf_img))), title('IHPF filtered image')
+
+%Butterworth low pass filters: 
+%Source Code
+clc;clear all;close all; 
+% Butterworth Lowpass Filter(BLPF)
+img=imread('cameraman.tif');
+[r,c]=size(img);
+subplot(231), imshow(img), title('Source image');
+IMG=fftshift(fft2(img));
+ [u, v]=meshgrid(-floor(c/2):floor((c-1)/2),-floor(r/2):floor((r-1)/2));
+D=sqrt(u.^2+v.^2);
+D0=15;
+n=1;
+BLPF = 1./( 1.+ (D./D0).^(2*n)  );
+subplot(232), mesh(BLPF), title('BLPF') 
+BLPF_IMG=IMG.*BLPF;
+blpf_img=ifft2(BLPF_IMG);
+subplot(233), imshow(mat2gray(abs(blpf_img))), title('BLPF filtered image') 
+% Butterworth Highpass Filter(BHPF)
+subplot(234), imshow(img), title('Source image')
+D0=15;
+n=1;
+BHPF=1./(  1.+ (D0./D).^(2*n)    );
+subplot(235), mesh(BHPF), title('BHPF') 
+BHPF_IMG=IMG.*BHPF;
+bhpf_img=ifft2(BHPF_IMG);
+subplot(236), imshow(mat2gray(abs(bhpf_img))), title('BHPF filtered image')
+
+%Gaussian low pass filters
+%Source Code
+clc;clear all;close all 
+% Gaussian Lowpass Filter(GLPF)
+img=imread('cameraman.tif');
+[r,c]=size(img);
+subplot(231), imshow(img), title('Source image')
+IMG=fftshift(fft2(img)); 
+ [u,v]=meshgrid(-floor(c/2):floor((c-1)/2),-floor(r/2):floor((r-1)/2));
+D=sqrt(u.^2+v.^2);
+D0=10;
+GLPF = exp (-(D.^2)./(2*D0^2)) ;
+subplot(232), mesh(GLPF), title('GLPF') 
+GLPF_IMG=IMG.*GLPF;
+glpf_img=ifft2(GLPF_IMG);
+subplot(233), imshow(mat2gray(abs(glpf_img))), title('GLPF filtered image') 
+% Gaussian Highpass Filter(GHPF)
+subplot(234), imshow(img), title('Source image') 
+D0=10;
+GHPF=1 - exp (-(D.^2)./(2*D0^2)) ;
+subplot(235), mesh(GHPF), title('GHPF')
+GHPF_IMG=IMG.*GHPF;
+ghpf_img=ifft2(GHPF_IMG);
+subplot(236), imshow(mat2gray(abs(ghpf_img))), title('GHPF filtered image')
+
+%Problem 5: Write a MATLAB program for (i) Laplacian (ii) homomorphic filter of a gray level image in frequency domain.
+%Laplacian Filter in frequency domain: 
+%Source Code
+clc; clear all; close all;
+% Laplacian Filter(LF)
+img=imread('trees.tif');
+[r,c]=size(img);
+subplot(131), imshow(img), title('Source image')
+IMG=fftshift(fft2(img));
+%Dispaly Fourier Transformed Image
+IMG1=log(1+abs(IMG));
+m=max(IMG1(:));
+figure(2), imshow(im2uint8(IMG1/m)), title('Fourier Transformed Image'); 
+ [u,v]=meshgrid(-floor(c/2):floor((c-1)/2),-floor(r/2):floor((r-1)/2));
+LF = -4*pi^2*(u.^2+v.^2) ;
+figure(1), subplot(132), mesh(LF), title('Laplacian Filter')
+LF_IMG=IMG.*LF;
+lf_img=ifft2(LF_IMG);
+subplot(133), imshow(mat2gray(abs(lf_img))), title('Laplacian filtered image')
+
+%Homomorphic filter: Based on the assumption of the illuminations-reflectance model, an image can be enchanced by basic homomorphic filtering. 
+%Source Code:
+clc; clear all; close all;
+% Homomorphic Filter(HMF)
+img=imread('trees.tif');
+[r,c]=size(img);
+subplot(131), imshow(img), title('Source image')
+IMG=fftshift(fft2(img));
+%Dispaly Fourier Transformed Image
+IMG1=log(1+abs(IMG));
+m=max(IMG1(:));
+figure(2), imshow(im2uint8(IMG1/m)), title('Fourier Transformed Image');  
+img=im2double(img);
+IMG=fft2(log(img+0.01));
+%%%Creating Butterworth High Pass Filter for HMF
+%%%Creating filter
+[u,v]=meshgrid(-floor(c/2):floor((c-1)/2),-floor(r/2):floor((r-1)/2));
+D=sqrt(u.^2+v.^2);
+D0=15;
+n=1;
+BHPF = 1./( 1.+ (D0./D).^(2*n)  );
+figure(1), subplot(132), mesh(BHPF), title('BHPF for HMF')
+BHPF_IMG=IMG.*BHPF;
+real_img=real(ifft2(BHPF_IMG));
+exp_img=exp(real_img);
+subplot(133), imshow(mat2gray(abs(exp_img))), title('Homomorphic filtered image')
+
+%Problem 6: Write a MATLAB program for (i) arithmetic and geometric (ii) harmonic and contraharmonic (iii) midpoint and alpha-trimmed mean filter of a gray level image.
+%Arithmetic mean filter and Geometric Mean filter 
+%Source Code:
+clc;clear all;close all;
+% Arithmetic Mean Filter and Geometric Mean Filter
+img=imread('cameraman.tif');
+[r,c]=size(img);
+img=im2double(img);
+subplot(221);imshow(img);title('Source image');
+%%%Adding Gaussian Noise
+noisy_img=imnoise(img,'gaussian');
+subplot(222);imshow(noisy_img);title('Gaussian noisy image');
+%%% 'valid' convolution(3*3) , so image dimension will be reduced
+for i=1:r-2
+    for j=1:c-2
+        window = noisy_img(i:i+2,j:j+2);
+        amf_img(i,j)= mean( window(:) );
+        gmf_img(i,j)= geomean( window(:) );    
+    end
+end
+subplot(223);imshow(amf_img);title('AMF filtered image');
+subplot(224);imshow(gmf_img);title('GMF filtered image');
+
+%Contraharmonic Filter and Harmonic Filter: 
+%Source Code:
+clc;clear all;close all;
+% Harmonic Mean Filter and Conrtaharmonic Mean Filter
+img=imread('cameraman.tif');
+[r,c]=size(img);
+img=im2double(img);
+subplot(221);imshow(img);title('Source image');
+%%%Adding Gaussian Noise
+noisy_img=imnoise(img,'gaussian');
+subplot(222);imshow(noisy_img);title('Gaussian noisy image');
+%%% 'valid' convolution(3*3) , so image dimension will be reduced
+Q=1.5;
+for i=1:r-2
+    for j=1:c-2
+        window = noisy_img(i:i+2,j:j+2);
+        hmf_img(i,j)= harmmean( window(:) ); 
+        chmf_img(i,j)= sum( window(:).^(Q+1) ) ./ sum( window(:).^Q );
+    end
+end
+subplot(223);imshow(hmf_img);title('HMF filtered image');
+subplot(224);imshow(chmf_img);title('CHMF filtered image');
+
+%Midpoint filter and Alpha-trimmed filter: 
+%Source Code:
+clc;clear all;close all;
+%  Midpoint Filter ( MF )
+img=imread('cameraman.tif');
+[r,c]=size(img);
+img=im2double(img);
+subplot(221);imshow(img);title('Source image');
+%%% Adding Gaussian Noise
+noisy_img=imnoise(img,'Gaussian');
+subplot(222);imshow(noisy_img);title('Gaussian noisy image');
+%%% Filtering , window 3*3
+midf_img= ( ordfilt2(noisy_img,9,ones(3,3)) + ordfilt2(noisy_img,1,ones(3,3)) )./2 ;
+subplot(223);imshow(midf_img);title('Midpoint filtered image');
+% Alpha-trimmed Mean Filter ( ATMF )
+%%% 'valid' convolution(3*3) , so image dimension will be reduced
+d=25; %percent
+for i=1:r-2
+    for j=1:c-2
+        window = noisy_img(i:i+2,j:j+2);
+        atmf_img(i,j)= trimmean( window(:),d );    
+    end
+end
+subplot(224);imshow(atmf_img);title('ATMF filtered image');
+
+%Problem 7: Write a MATLAB program for (i) ideal (ii) Butterworth (iii) Gaussian bandreject and bandpass filter of a gray level image.
+%Ideal bandreject and bandpass filter:  
+%Source Code:
+clc;clear all;close all; 
+% Ideal Bandreject Filter(IBRF)
+img=imread('cameraman.tif');
+[r,c]=size(img);
+imshow(img);title('Source image'); 
+[u,v]=meshgrid(-floor(c/2):floor((c-1)/2),-floor(r/2):floor((r-1)/2));
+%%%Adding Noise
+sin_noise= 15*sin( 2*pi*1/10*u + 2*pi*1/10*v);
+noisy_img=double(img)+sin_noise;
+NOISY_IMG=fftshift(fft2(noisy_img)); 
+figure(2)
+subplot(231);imshow(noisy_img,[]);title('Sinusoidal noisy image')
+subplot(234);imshow(mat2gray(log(1+abs(NOISY_IMG))));title('FFT of noisy image'); 
+%%%Creating filter
+D=sqrt(u.^2+v.^2);
+D0=50;
+W=40;
+IBRF= ( D<(D0-W/2) | D>(D0+W/2) );
+subplot(232),title('IBRF');
+IBRF_IMG=NOISY_IMG.*IBRF;
+ibrf_img=ifft2(IBRF_IMG);
+subplot(233);imshow(mat2gray(abs(ibrf_img)));title('IBRF filtered image'); 
+% Ideal Bandpass Filter(IBPF)
+IBPF= 1 - IBRF ;
+subplot(235);title('IBPF') 
+IBPF_IMG=NOISY_IMG.*IBPF;
+ibpf_img=ifft2(IBPF_IMG);
+subplot(236);imshow(mat2gray(abs(ibpf_img)));title('IBPF filtered image');
+
+
+%Butterworth bandreject and bandpass filter: 
+%Source Code:
+clc;clear all;close all; 
+% Butterworth Bandreject Filter(BBRF)
+img=imread('cameraman.tif');
+[r,c]=size(img);
+imshow(img);title('Source image'); 
+[u,v]=meshgrid(-floor(c/2):floor((c-1)/2),-floor(r/2):floor((r-1)/2));
+%%%Adding Noise
+sin_noise= 15*sin( 2*pi*1/10*u + 2*pi*1/10*v);
+noisy_img=double(img)+sin_noise;
+NOISY_IMG=fftshift(fft2(noisy_img)); 
+figure(2)
+subplot(231);imshow(noisy_img,[]);title('Sinusoidal noisy image');
+subplot(234);imshow(mat2gray(log(1+abs(NOISY_IMG))));title('FFT of noisy image'); 
+%%%Creating filter
+D=sqrt(u.^2+v.^2);
+D0=50;
+n=1;
+W=20;
+BBRF=1./(  1.+   ( (D.*W) ./ (D.^2-D0.^2) )   .^(2*n)    );
+subplot(232);mesh(BBRF);title('BBRF')
+BBRF_IMG=NOISY_IMG.*BBRF;
+bbrf_img=ifft2(BBRF_IMG);
+subplot(233);imshow(mat2gray(abs(bbrf_img)));title('BBRF filtered image')
+% Butterworth Bandpass Filter(BBPF)
+BBPF= 1 - BBRF;
+subplot(235);mesh(BBPF);title('BBPF') 
+BBPF_IMG=NOISY_IMG.*BBPF;
+bbpf_img=ifft2(BBPF_IMG);
+subplot(236);imshow(mat2gray(abs(bbpf_img)));title('BBPF filtered image');
+
+%Gaussian bandreject and bandpass filter:  
+%Source Code:
+clc;clear all;close all 
+% Gaussian Bandreject Filter(GBRF)
+img=imread('cameraman.tif');
+[r,c]=size(img);
+imshow(img);title('Source image')
+ [u,v]=meshgrid(-floor(c/2):floor((c-1)/2),-floor(r/2):floor((r-1)/2));
+sin_noise= 15*sin( 2*pi*1/10*u + 2*pi*1/10*v);
+noisy_img=double(img)+sin_noise;
+NOISY_IMG=fftshift(fft2(noisy_img)); 
+figure(2)
+subplot(231);imshow(noisy_img,[]);title('Sinusoidal noisy image');
+subplot(234);imshow(mat2gray(log(1+abs(NOISY_IMG))));title('FFT of noisy image');
+D=sqrt(u.^2+v.^2);
+D0=50;
+W=20;
+GBRF= 1 -  exp ( -(1/2).* ( ((D.^2)-(D0.^2)) ./ (D.*W) ).^2 ) ;
+subplot(232);mesh(GBRF);title('GBRF');
+GBRF_IMG=NOISY_IMG.*GBRF;
+gbrf_img=ifft2(GBRF_IMG);
+subplot(233);imshow(mat2gray(abs(gbrf_img)));title('GBRF filtered image');
+GBPF=1 - GBRF;
+subplot(235);mesh(GBPF);title('GBPF'); 
+GBPF_IMG=NOISY_IMG.*GBPF;
+gbpf_img=ifft2(GBPF_IMG);
+subplot(236);imshow(mat2gray(abs(gbpf_img)));title('GBPF filtered image');
+
+%Problem 8: Write a MATLAB program for Wiener filter of a gray level image.
+%Winer Filter: 
+%Source Code:
+clc;clear all;close all 
+% Minimum Mean Square Error Filter( Wiener Filter )
+img=imread('cameraman.tif');
+subplot(131);imshow(img); title('Source image');
+noisy_img=imnoise(img,'gaussian');
+subplot(132);imshow(noisy_img);title('Gaussian noisy image'); 
+wiener_img=wiener2(noisy_img,[5 5]);
+subplot(133)
+imshow(wiener_img);
+title('Wiener filtered image')
+
+%Problem 9: Write a MATLAB program for separating RGB and HSI components of a color image.
+%RGB and HIS Components: 
+%Source code:
+clc;clear all;close all; 
+rgb_img=imread('F:\3-2\Teams Files\DIP\Image Processing Book Images\DIP3E_Original_Images_CH06/Fig0646(a)(lenna_original_RGB).tif');
+rgb_img=im2double(rgb_img);
+figure(1)
+subplot(221);imshow(rgb_img);title('Original RGB image'); 
+% Separating RGB components
+R=rgb_img; R(:,:,2)=0; R(:,:,3)=0;
+G=rgb_img; G(:,:,1)=0; G(:,:,3)=0;
+B=rgb_img; B(:,:,1)=0; B(:,:,2)=0; 
+subplot(222);imshow(R);title('Red component');
+subplot(223);imshow(G);title('Green component');
+subplot(224);imshow(B);title('Blue component'); 
+figure(2)
+subplot(221);imshow(rgb_img);title('RGB image'); 
+hsi_img=rgb2hsv(rgb_img);
+ % Separating HSI components
+H=hsi_img; H(:,:,2)=0; H(:,:,3)=0;
+S=hsi_img; S(:,:,1)=0; S(:,:,3)=0;
+I=hsi_img; I(:,:,1)=0; I(:,:,2)=0; 
+subplot(222);imshow(H);title('Hue component');
+subplot(223);imshow(S);title('Saturation component');
+subplot(224);imshow(I);title('Intensity component');
+
+%Problem 10: Write a MATLAB program for smoothing and sharpening of a color image
+%Color image smoothing and sharpening
+%Source Code:
+clc;clear all;close all; 
+rgb_img=imread('F:\3-2\Teams Files\DIP\Image Processing Book Images\DIP3E_Original_Images_CH06/Fig0646(a)(lenna_original_RGB).tif');
+rgb_img=im2double(rgb_img);
+figure(1)
+subplot(221);imshow(rgb_img);title('Original RGB image'); 
+avg_filter=fspecial('average',[5 5]);
+laplacian_filter=fspecial('laplacian',0.2);
+R=rgb_img(:,:,1); avg_R=imfilter(R,avg_filter); lap_R=imfilter(R,laplacian_filter);
+G=rgb_img(:,:,2); avg_G=imfilter(G,avg_filter); lap_G=imfilter(G,laplacian_filter);
+B=rgb_img(:,:,3); avg_B=imfilter(B,avg_filter); lap_B=imfilter(B,laplacian_filter);
+ % Combining 3 channels after filtering
+avg_rgb_img=cat(3,avg_R,avg_G,avg_B);
+lap_rgb_img=cat(3,lap_R,lap_G,lap_B); 
+hsi_img=rgb2hsv(rgb_img);
+H=hsi_img(:,:,1);
+S=hsi_img(:,:,2);
+I=hsi_img(:,:,3); avg_I=imfilter(I,avg_filter); lap_I=imfilter(I,laplacian_filter); 
+% Combining 3 channels after filtering
+avg_hsi_img=cat(3,H,S,avg_I);
+lap_hsi_img=cat(3,H,S,lap_I);
+avg_rgb_img_from_hsi=hsv2rgb(avg_hsi_img);
+lap_rgb_img_from_hsi=hsv2rgb(lap_hsi_img);
+diff_avg_img=avg_rgb_img-avg_rgb_img_from_hsi;
+diff_lap_img=lap_rgb_img-lap_rgb_img_from_hsi;
+subplot(222);imshow(avg_rgb_img);title('Smoothing using RGB model');
+subplot(223);imshow(avg_rgb_img_from_hsi);title('Smoothing using HSI model');
+subplot(224);imshow(diff_avg_img);title('Difference');
+figure(2)
+subplot(221);imshow(rgb_img);title('Original RGB image');
+subplot(222);imshow(lap_rgb_img);title('Sharpening using RGB model');
+subplot(223);imshow(lap_rgb_img_from_hsi);title('Sharpening using HSI model');
+subplot(224);imshow(diff_lap_img);title('Difference');
+%Problem 11: Write a MATLAB program for (i) Haar Transform (ii) one dimensional Discrete Wavelet Transform (iii) Discrete Cosine Transform of an image.
+%Haar transform
+%Source Code:
+clc;clear all;close all;
+i=imread('F:\3-2\Teams Files\DIP\Image Processing Book Images/peppers.png');
+subplot(231); imshow(i); title('original image');
+ [ia1, ih1, iv1, id1]=dwt2(i, 'haar');
+a1=ia1/255; h1=log10(ih1)*0.3; v1=log10(iv1)*0.3; d1=log10(id1)*0.3;
+subplot(232); imshow(real(a1)); title('Approximation');
+subplot(233); imshow(abs(h1)); title('Horizontal details');
+subplot(234); imshow(abs(v1)); title('Vertical detail');
+subplot(235); imshow(abs(d1)); title('diagonal detail');
+transformed_i_level_1=[a1 v1 ; h1 d1];
+subplot(236); imshow(abs(transformed_i_level_1)); title('level-1 transformation');
+rec_i=idwt2(ia1, ih1, iv1, id1, 'haar');
+figure(2);
+subplot(211);imshow(rec_i/255); title('Reconstruction from level-1 transformation');
+ [ia2, ih2, iv2, id2]=dwt2(ia1, 'haar');
+a2=ia2/255; h2=log10(ih2)*0.3; v2=log10(iv2)*0.3; d2=log10(id2)*0.3;
+tranformed_i_level_2=[[a2 v2 ; h2 d2] v1 ; h1 d1];
+subplot(212); imshow(abs(tranformed_i_level_2)); title('Level-2 transformation');
+%One Dimensional discrete wavelet transform: 
+%Source Code:
+clc, close all;
+clear all;
+X=imread('peppers.png');
+figure(1);
+subplot(1,2,1);
+imshow(X);
+title('Original Image');
+X= double(X);
+i=imresize(X,[512 512]);
+subplot(1,2,2);
+imshow(i);
+title('Resize Image');
+sX=size(X);
+[LL,LH,HL,HH]= dwt2(X,'db1');
+figure(2)
+subplot(2,2,1);imshow(LL);title('LL band of image');
+subplot(2,2,2);imshow(LH);title('LH band of image');
+subplot(2,2,3);imshow(HL);title('HL band of image');
+subplot(2,2,4);imshow(HH);title('HH band of image');
+%Discrete Cosine Transform: 
+%Source Code:
+%discrete cosine transformation
+clc;clear all; close all;
+img=imread('autumn.tif');
+img=rgb2gray(img);
+subplot(131); imshow(img); title('original image');
+dct_img=dct2(img);
+subplot(132); imshow(log(abs(dct_img)), []); colormap(gca, jet); title('image after dct');
+dct_img(abs(dct_img)<10)=0;
+idct_img=idct2(dct_img);
+subplot(133); imshow(idct_img, [0, 255]); title('Reconstructed image');
+%Problem 12: Write a MATLAB program for edge detection using Sobel, Canny, Prewitt, Roberts, log, zerocross filter.
+%Source Code
+clc; clear all; close all;
+I=imread('F:\3-2\Teams Files\DIP\Image Processing Book Images\DIP3E_Original_Images_CH04/Fig0438(a)(bld_600by600).tif');
+figure(1),
+subplot(231), imshow(I), title('Origianl image');
+BW1=edge(I, 'sobel');
+BW2=edge(I, 'canny');
+subplot(232), imshow(BW1), title('Soble filter');
+subplot(233), imshow(BW2), title('Canny filter');
+I=imread('circuit.tif');
+subplot(234), imshow(I), title('Origianl image');
+BW1=edge(I, 'canny');
+BW2=edge(I, 'prewitt');
+subplot(235), imshow(BW1), title('canny filter');
+subplot(236), imshow(BW2), title('prewit filter');
+
+%Problem 13: Write a MATLAB program to implement a LPF (FIR) with cutoff 8KHz and to denoise audio.
+%Source Code
+[filename,pathname]=uigetfile('*.*', 'select the input audio');
+[x, Fs]=audioread(num2str(filename));
+%filter implementation
+Fsf=44100; %sampling frequency
+Fp=8e3; %passband frequency in Hz
+Fst=8.4e3 %stopband frequency in Hz
+Ap=1; %passband ripple in db
+Ast=95; %stopband attenuation in db
+%design the filter
+df=designfilt('lowpassfir', 'PassbandFrequency', Fp, 'StopbandFrequency', Fst, 'PassbandRipple', Ap, 'StopbandAttenuation', Ast, 'SampleRate', Fsf);
+fvtool(df) %visualize frequency response fvtool(df);
+xn=awgn(x,15, 'measured'); %signal corrupted by white gaussian noise
+y=filter(df, xn);
+subplot(3,1,1), plot(x(1:450)); title('original signal');
+subplot(3,1,2), plot(xn(1:450)); title('noisy signal');
+subplot(3,1,3), plot(y(1:450)); title('filtered signal');
+
+%Problem 14: Write a MATLAB program to implement Echo of audio signal.
+%Source Code:
+[filename, pathname]=uigetfile('*.*', 'select the input audio');
+[x, Fs]=audioread(num2str('D:\ICE-3208 DIP Sessional MATLAB/songarbanglacircus.wav'));
+n=length(x); %get the length of the audio file
+a=0.8; %attenuation factor
+d=2000; %delay
+y=zeros(n+d, 1); %initialize the output audio file
+xn=padarray(x, [d,0], 0, 'Pre');
+for i=(d+1):1:n
+y(i-d, 1)=x(i)+a*xn(i-d);
+end
+
+%Problem 15: Write a MATLAB program to record and save single and double channel audio.
+%Record and save audio: Record Audio
+%Source Code:
+Fs=44100; %sampling frequency, default value is 8192
+noc=1; %no of input channel
+nob=16; %no of bits per sample, default value is 8bits per sample
+recObj=audiorecorder(Fs, nob, noc);
+%record(recObj)
+%pause(5); % no ofseconds
+recordblocking(recObj, 5); %start recording for 5 seconds
+play(recObj); %play back the recording
+myRecording=getaudiodata(recObj); %getting recorded audio data as an array
+plot(myRecording);
+sound(myRecording, Fs); %play back the recording
+audiowrite('D:\ICE-3208 DIP Sessional MATLAB/songarbanglacircus.wav', myRecording, Fs);
+
+%Problem 16: Write a MATLAB program to implement Text to Speech signal.
+%Source Code:
+NET.addAssembly('System.speech');
+mySpeaker=System.Speech.Synthesis.SpeechSynthesizer;
+mySpeaker.Rate=3;
+mySpeaker.Volume=100;
+Speak(mySpeaker, 'this is digital Image and Speech Processing');
+
